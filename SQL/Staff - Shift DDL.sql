@@ -124,6 +124,14 @@ create table Mentorship (
     references SousChef (staffID)
 );
 
+create table lineCook (
+	staffID int not null,
+    primary key (staffID),
+    constraint lineCook_ForeignKey
+    foreign key (staffID)
+    references Chef(staffID)
+);
+
 create table shift (
 	shiftID int not null,
     managerID int not null,
@@ -143,19 +151,25 @@ create table shift (
 create table shift_assignment (
 	staffID int not null,
     ShiftID int not null,
-    managerID int not null,
-    primary key (staffID,shiftID,managerID),
+    primary key (staffID),
     constraint staff_to_shift_assignment_foreignkey
     foreign key (staffID)
     REFERENCES staff (StaffID),
     constraint shift_to_shift_assignment_foreignkey
-    foreign key (shiftID,managerID)
-    REFERENCES shift (shiftID,managerID)
+    foreign key (shiftID)
+    REFERENCES shift (shiftID)
 );
 
--- Line Cook
-
 -- Station-Shift
+create table station_shift (
+	StationID int not null,
+    LineCookID int not null,
+    ShiftID int not null,
+    primary key (StationID,LineCookID,ShiftID),
+    constraint station_shift_station_F
+    foreign key (StationID)
+    references station (StationID)
+);
 
 
     
