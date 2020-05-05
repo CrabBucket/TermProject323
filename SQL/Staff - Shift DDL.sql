@@ -151,7 +151,7 @@ create table shift (
 create table shift_assignment (
 	staffID int not null,
     ShiftID int not null,
-    primary key (staffID),
+    primary key (staffID,ShiftID),
     constraint staff_to_shift_assignment_foreignkey
     foreign key (staffID)
     REFERENCES staff (StaffID),
@@ -166,10 +166,44 @@ create table station_shift (
     LineCookID int not null,
     ShiftID int not null,
     primary key (StationID,LineCookID,ShiftID),
-    constraint station_shift_station_F
+	constraint station_shift_station_FK
     foreign key (StationID)
-    references station (StationID)
+    references station (StationID),
+    constraint station_shift_lineCook_FK
+    foreign key (LineCookID)
+    references lineCook(staffID),
+    constraint station_shift_assignment_FK
+    foreign key (LineCookID , ShiftID)
+    references shift_assignment (staffID , ShiftID)
 );
 
+-- Cooking Capability
+create table cookingCapability (
+	staffID int not null,
+    foodItemID int not null,
+    primary key (staffID , foodItemID),
+    constraint staffID_to_cookingCapability_ForeignKey
+    Foreign Key (staffID)
+    references SousChef (staffID),
+    -- Finish this module lock
+    constraint foodItem_to_cookingCapability_ForeignKey
+    Foreign Key (foodItemID)
+    references 
+    -- Finish this module lock
+);
 
-    
+-- recipes
+create table Recipes (
+	MenuListingID int not null,
+    staffID int not null,
+    RecipeName varchar(20),
+    primary key (MenuListingID, staffID),
+    constraint headChef_to_Recipes_ForeignKey
+    Foreign Key (staffID)
+    references HeadChef (HeadChefID),
+    -- Finish this module lock
+    constraint MenuListing_to_Recipes_ForeignKey
+    Foreign Key (MenuListingID)
+    references 
+    -- Finish this module lock
+);
