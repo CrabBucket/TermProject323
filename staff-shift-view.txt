@@ -1,0 +1,7 @@
+--3
+CREATE VIEW Sous_Mentor_V AS
+(
+Select firstname, lastname from  staff s
+INNER JOIN Sous
+SELECT * FROM Sous_Mentor_V
+);

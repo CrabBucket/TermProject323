@@ -1,5 +1,5 @@
 -- Use database
-use cecs323sec07s19;
+use cecs323sec07bg05;
 
 -- create table name staff
 create table staff (
@@ -178,32 +178,32 @@ create table station_shift (
 );
 
 -- Cooking Capability
-create table cookingCapability (
-	staffID int not null,
-    foodItemID int not null,
-    primary key (staffID , foodItemID),
-    constraint staffID_to_cookingCapability_ForeignKey
-    Foreign Key (staffID)
-    references SousChef (staffID),
+-- create table cookingCapability (
+--	staffID int not null,
+--    foodItemID int not null,
+--    primary key (staffID , foodItemID),
+--    constraint staffID_to_cookingCapability_ForeignKey
+ --   Foreign Key (staffID)
+--    references SousChef (staffID),
     -- Finish this module lock
-    constraint foodItem_to_cookingCapability_ForeignKey
-    Foreign Key (foodItemID)
-    references 
+--    constraint foodItem_to_cookingCapability_ForeignKey
+--    Foreign Key (foodItemID)
+--    references 
     -- Finish this module lock
-);
+-- );
 
 -- recipes
-create table Recipes (
-	MenuListingID int not null,
-    staffID int not null,
-    RecipeName varchar(20),
-    primary key (MenuListingID, staffID),
-    constraint headChef_to_Recipes_ForeignKey
-    Foreign Key (staffID)
-    references HeadChef (HeadChefID),
+-- create table Recipes (
+-- MenuListingID int not null,
+--    staffID int not null,
+--    RecipeName varchar(20),
+--    primary key (MenuListingID, staffID),
+--    constraint headChef_to_Recipes_ForeignKey
+--    Foreign Key (staffID)
+--    references HeadChef (HeadChefID),
     -- Finish this module lock
-    constraint MenuListing_to_Recipes_ForeignKey
-    Foreign Key (MenuListingID)
-    references 
+--    constraint MenuListing_to_Recipes_ForeignKey
+--    Foreign Key (MenuListingID)
+--    references 
     -- Finish this module lock
-);
+-- );
