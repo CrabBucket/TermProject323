@@ -70,6 +70,8 @@ insert into knownOrder(custID, orderNumber)
 	(SELECT 2, orderNumber FROM orders WHERE orderNumber > 13 and orderNumber < 18);
 insert into knownOrder(custID, orderNumber)
 	(SELECT 3, orderNumber FROM orders WHERE orderNumber > 18 and orderNumber < 21);
+insert into knownOrder(custID, orderNumber)
+	(SELECT 10, orderNumber FROM orders WHERE orderNumber > 8 and orderNumber < 14);
 
 insert into knownOrder(custID, orderNumber) values
 (001, 01),
@@ -196,7 +198,12 @@ insert into webOrder(orderNumber) values
 
 INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
 	(SELECT MenuID, MenuListingID, 1 FROM MenuOfferings WHERE MenuOfferings.MenuID = 3 AND MenuListingID > 15);
+    INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
+	(SELECT MenuID, MenuListingID, 8 FROM MenuOfferings WHERE MenuOfferings.MenuID = 1 AND MenuListingID < 15);
 INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
 	(SELECT MenuID, MenuListingID, 18 FROM MenuOfferings WHERE MenuOfferings.MenuID = 3 AND MenuListingID > 15);
 INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
 	(SELECT MenuID, MenuListingID, 15 FROM MenuOfferings WHERE MenuOfferings.MenuID = 3 AND MenuListingID < 15);
+    
+INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
+	(SELECT MenuID, MenuListingID, 10 FROM MenuOfferings WHERE MenuOfferings.MenuID = 1 AND MenuListingID < 15);
