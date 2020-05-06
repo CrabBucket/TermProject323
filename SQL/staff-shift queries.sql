@@ -21,18 +21,23 @@ inner join staff s2 using (staffID)
 inner join SousChef using (staffID);
 
 -- 6 incomplete
-select firstname, 
-	lastname
+select 
+	week(shiftDate),
+	firstname, 
+	lastname,
+    (count(shiftID) * 8) as 'Number of hours worked'
 from staff
 inner join shift_assignment
 using (staffID)
-group by staffID;
+inner join shift
+using (shiftID)
+group by staffID,shiftDate;
 
 -- 12 complete
 select firstname,
 lastname,
 expertise,
-min(`Num of students`)
+max(`Num of students`)
 from (
 	select firstname,
     lastname,
@@ -43,7 +48,7 @@ from (
 	using (staffID)
 	group by staffID) sc1;
 
--- 13 complete
+-- 13 incomplete
 select firstname,
 lastname,
 min(`Number of Expertise`)
