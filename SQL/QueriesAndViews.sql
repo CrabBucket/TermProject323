@@ -31,6 +31,16 @@ Group By MenuName
 ORDER BY TotalMoneyEarnedInTheLastTwoYear DESC
 LIMIT 5;
 
+#13)
+SELECT DisplayName, COUNT(FoodItemID) as TotalChefsCanCook FROM CookingCapability NATURAL JOIN FoodItem
+GROUP BY FoodItemID
+ORDER BY TotalChefsCanCook ASC
+LIMIT 3;
+
+
+
+
+
 14)
 SELECT customerName, corporationCustomerName
 FROM customers
@@ -39,13 +49,7 @@ ORDER BY (Case
 	else corporationCustomerName 
 END);
 
-#--1
-
-
-
-
-
-
+#--1 VIEWS
 
 CREATE OR REPLACE VIEW AllFoodItemsOnMenus AS
     SELECT 
