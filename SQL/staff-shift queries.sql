@@ -1,6 +1,6 @@
 use cecs323sec07bg05;
 
--- 3 completed
+-- 3 Completed
 select firstname, 
 lastname,
 count(CookinCapabality.staffID) as 'Num of Menu Items',
@@ -17,7 +17,7 @@ select *
 from CookinCapabality cc1, CookinCapabality cc2
 where cc1.FoodItemID = cc2.FoodItemID;
 
--- 6 completed
+-- 6 Completed
 select 
 	week(shiftDate),
 	firstname, 
@@ -45,29 +45,29 @@ from (
 	using (staffID)
 	group by staffID) sc1;
 
--- 13 incomplete
-select firstname,
-lastname,
-min(`Number of Expertise`)
-from (
-	select firstname,
-	lastname,
-	count(expertise) as `Number of Expertise`
-	from SousChef
-	inner join staff
-	using (staffID)
-	group by staffID) sc1;
+-- 13 Completed
 
 select
 CC1.DisplayName,
-min(`Number of Sous Chef skilled in that menu item`)
+`Number of Sous Chef skilled in that menu item`
 from
 	(select DisplayName,
     count(staffID) as `Number of Sous Chef skilled in that menu item`
 	from CookinCapabality
     inner join FoodItem
     using (FoodItemID)
-	group by FoodItemID) CC1;
+	group by FoodItemID) CC1
+where `Number of Sous Chef skilled in that menu item` = 
+	(select min(`Number of Expertise`)
+		from (
+		select firstname,
+		lastname,
+		count(expertise) as `Number of Expertise`
+		from SousChef
+		inner join staff
+		using (staffID)
+		group by staffID) sc1
+limit 3 );
     
 -- 16 incompleted
 -- 1.Head chef can train an apprentice to become a head chef (encoded in the one to one between head chef and sous chef)
