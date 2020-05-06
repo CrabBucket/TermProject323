@@ -1,10 +1,9 @@
 CREATE TABLE orders(
 orderNumber int not null,
-bill double,
 customerPhone VARCHAR(15),
 orderDate VARCHAR(15),
-CONSTRAINT order_pk PRIMARY KEY(orderNumber),
-CONSTRAINT order_fk1 FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
+CONSTRAINT order_pk PRIMARY KEY(orderNumber)
+
 );
 
 CREATE TABLE paymentType(
@@ -72,16 +71,16 @@ CREATE TABLE email(
 custID int not null,
 email VARCHAR(25),
 contactType VARCHAR(10),
-CONSTRAINT phone_pk PRIMARY KEY(custID, contactType),
-constraint phone_fk1 FOREIGN KEY (custID, contactType) REFERENCES advisor(custID, contactType)
+CONSTRAINT email_pk PRIMARY KEY(custID, contactType),
+constraint email_fk1 FOREIGN KEY (custID, contactType) REFERENCES advisor(custID, contactType)
 );
 
 CREATE TABLE mail(
 custID int not null,
 mailingAddress VARCHAR(50),
 contactType VARCHAR(10),
-CONSTRAINT phone_pk PRIMARY KEY(custID, contactType),
-constraint phone_fk1 FOREIGN KEY (custID, contactType) REFERENCES advisor(custID, contactType)
+CONSTRAINT mail_pk PRIMARY KEY(custID, contactType),
+constraint mail_fk1 FOREIGN KEY (custID, contactType) REFERENCES advisor(custID, contactType)
 );
 
 CREATE TABLE eatIn(
@@ -89,7 +88,7 @@ orderNumber int not null,
 tableNumber int,
 tableSeat int,
 CONSTRAINT eatIn_pk PRIMARY KEY (orderNumber), 
-CONSTRAINT eatIn_fk1 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber),
+CONSTRAINT eatIn_fk1 FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber),
 CONSTRAINT eatIn_fk2 FOREIGN KEY (tableNumber) REFERENCES `Table` (tableNumber)
 );
 
@@ -109,8 +108,8 @@ CONSTRAINT phoneOrder_fk FOREIGN KEY (orderNumber) REFERENCES orders (orderNumbe
 
 CREATE TABLE webOrder(
 orderNumber int not null,
-CONSTRAINT phoneOrder_pk PRIMARY KEY (orderNumber),
-CONSTRAINT phoneOrder_fk FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
+CONSTRAINT webOrder_pk PRIMARY KEY (orderNumber),
+CONSTRAINT webOrder_fk FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
 );
 
 
