@@ -25,7 +25,7 @@ CONSTRAINT party_fk2 FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
 CREATE TABLE knownOrder(
 custID int not null,
 orderNumber int not null,
-CONSTRAINT knownOrder_pk PRIMARY KEY(custID),
+CONSTRAINT knownOrder_pk PRIMARY KEY(orderNumber),
 CONSTRAINT knownOrder_fk_FromCustomer Foreign Key (custID) REFERENCES customer(custId), 
 CONSTRAINT knownOrder_fk1 FOREIGN KEY (orderNumber) REFERENCES party (orderNumber)
 );

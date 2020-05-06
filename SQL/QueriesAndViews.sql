@@ -64,13 +64,25 @@ END);
 
 view)
 --2
-CREATE VIEW Customer_Addresses_v AS
+CREATE OR REPLACE VIEW Customer_Addresses_v AS
 (
-SELECT customerName, Adress, Email,`Miming Money Spent`, CorporationName, OrganizationName FROM (
-	SELECT COALESCE(privateCustomerName,corporationCustomerName) as customerName, COALESCE(snailMail,officeAddress) as Adress, COALESCE(email,'N/A') as Email, amountOfMimingsMoneySpent as `Miming Money Spent`, COALESCE(corporationName, "N/A") as CorporationName,  COALESCE(organizationName, "N/A") as OrganizationName 
+SELECT customerName, Address, Email,`Miming Money Spent`, CorporationName, OrganizationName FROM (
+	SELECT COALESCE(privateCustomerName,corporationCustomerName) as customerName, COALESCE(snailMail,officeAddress) as Address, COALESCE(email,'N/A') as Email, amountOfMimingsMoneySpent as `Miming Money Spent`, COALESCE(corporationName, "N/A") as CorporationName,  COALESCE(organizationName, "N/A") as OrganizationName 
     FROM customer) tmp
 );
---4
+
+SELECT * FROM Customer_Addresses_v;
+#--4
+
+#CREATE OR REPLACE VIEW SuperCustData as
+SELECT * FROM customer NATURAL JOIN knownOrder NATURAL JOIN party NATURAL JOIN orders JOIN ItemsOrdered USING (orderNumber) JOIN All;
+SELECT * FROM SuperCustData;
+SELECT customerName, sum(something) FROM (
+	SELECT
+
+
+
+
 CREATE VIEW Customer_Sales_v AS
 (
 SELECT customerName, sum(bill) 
@@ -84,6 +96,18 @@ on ko.orderNumber = o.orderNumber
 GROUP BY customerName
 SELECT * FROM Customer_Sales_v
 );
+
+
+SELECT customerName, sum(bill) 
+FROM customer c
+INNER JOIN knownOrder ko
+ON c.custID = ko.custID
+INNER JOIN part p
+ON ko.orderNumber = p.orderNumber
+INNER JOIN orders o
+on ko.orderNumber = o.orderNumber
+GROUP BY customerName;
+SELECT * FROM Customer_Sales_v;
 
 --5
 CREATE VIEW Customer_Value_v AS

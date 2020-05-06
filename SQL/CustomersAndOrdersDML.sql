@@ -21,7 +21,7 @@ insert into orders(orderNumber, customerPhone, orderDate) values
 (20, '321-445-5431', '2019-03-03');
 
 --payments
-insert into paymentType(paymentType) values
+insert into paymentType(payment) values
 ('Cash'),
 ('Credit'),
 ('Debit'),
@@ -41,27 +41,31 @@ insert into party(payment, orderNumber) values
 ('Cash', 01),
 ('Cash', 02),
 ('Cash', 03),
-('Credit', 04),
+('Credit', 04);
+insert into party(payment, orderNumber) values
 ('Credit', 05),
 ('Credit', 06),
 ('Cash', 07),
 ('Cash', 08),
 ('Credit', 09),
-('Credit', 10),
+('Credit', 10);
+insert into party(payment, orderNumber) values
 ('Cash', 11),
 ('Cash', 12),
-('Credit', 13),
-('Mimings Money', 14),
-('Mimings Money', 15),
-('Mimings Money', 16),
-('Mimings Money', 17),
-('Mimings Money', 18),
-('Mimings Money', 19),
-('Mimings Money', 20);
+('Credit', 13);
+insert into party(payment, orderNumber) values
+('MiminigsMoney', 14);
+insert into party(payment, orderNumber) values
+('MiminigsMoney', 15),
+('MiminigsMoney', 16),
+('MiminigsMoney', 17),
+('MiminigsMoney', 18),
+('MiminigsMoney', 19),
+('MiminigsMoney', 20);
 
 
 insert into knownOrder(custID, orderNumber)
-	(SELECT 1, orderNumber FROM orders WHERE orderNumber > 17);
+	(SELECT 1, orderNumber FROM party WHERE orderNumber > 17);
 insert into knownOrder(custID, orderNumber)
 	(SELECT 2, orderNumber FROM orders WHERE orderNumber > 13 and orderNumber < 18);
 insert into knownOrder(custID, orderNumber)
@@ -105,18 +109,22 @@ insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpen
    email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress) values
 (001, 01, 'Daniel Jiron', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (002, 02, 'Ely David Bajurto', 0, 'Ely David Bajurto', 'elyDB@gmail.com', 'elyDB@snailmail.com', NULL, NULL, NULL, NULL),
-(003, 03, 'Benjamin David Bajurto', 0, NULL, NULL, NULL, 'Benjamin David Bajurto', 'Plex-Art Inc', 'Sales', '8210 S Broadway CA'),
+(003, 03, 'Benjamin David Bajurto', 0, NULL, NULL, NULL, 'Benjamin David Bajurto', 'Plex-Art Inc', 'Sales', '8210 S Broadway CA');
 (004, 04, 'Jose Ramon Rodriguez', 0, 'Jose Ramon Rodriguez', 'joseRR@gmail.com', 'joseRR@snailmail.com', 'Personio GmbH', 'Engineering', '10221 Altstadtring Munich, Germany'),
+insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpent, privateCustomerName, 
+   email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress) values
 (005, 05, 'David Eckerfield', 0, 'David Eckerfield', 'davidE@gmail.com', 'davidE@snailmail.com', 'U.S Marines', 'IT', '8210 Lincoln Road Miami, Florida'),
+insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpent, privateCustomerName, 
+   email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress) values
 (009, 09, 'Daniel Stier', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (010, 10, 'Max Del Rio', 0, NULL, NULL, NULL, 'Max Del Rio', 'Plex-Art Inc', 'Fabrication', '8210 S Broadway CA'),
 (011, 11, 'Kevin Funez', 0, NULL, NULL, NULL, 'Kevin Funez', 'Dip Shipping', 'Sales', '18210 Studebaker CA'),
 (012, 12, 'Johnny David', 0, NULL, NULL, NULL, 'Johnny David', 'Dip Shipping', 'Engineering', '18210 Studebaker CA'),
 (013, 13, 'Luiz Rodriguez', 0, 'Luiz Rodriguez', 'luisR@gmail.com', 'luisR@snailmail.com', NULL, NULL, NULL, NULL),
-(001, 14, 'Daniel Jiron', 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(002, 15, 'Ely David Bajurto', 15, 'Ely David Bajurto', 'elyDB@gmail.com', 'elyDB@snailmail.com', NULL, NULL, NULL, NULL),
-(003, 16, 'Benjamin David Bajurto', 13, NULL, NULL, NULL, 'Benjamin David Bajurto', 'Plex-Art Inc', 'Sales', '8210 S Broadway CA'),
-(009, 17, 'Daniel Stier', 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(014, 14, 'Daniel Jiron', 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(015, 15, 'Ely David Bajurto', 15, 'Ely David Bajurto', 'elyDB@gmail.com', 'elyDB@snailmail.com', NULL, NULL, NULL, NULL),
+(016, 16, 'Benjamin David Bajurto', 13, NULL, NULL, NULL, 'Benjamin David Bajurto', 'Plex-Art Inc', 'Sales', '8210 S Broadway CA'),
+(017, 17, 'Daniel Stier', 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 (005, 18, 'David Eckerfield', 6, 'David Eckerfield', 'davidE@gmail.com', 'davidE@snailmail.com', 'U.S Marines', 'IT', '8210 Lincoln Road Miami, Florida'),
 (010, 19, 'Max Del Rio', 5, NULL, NULL, NULL, 'Max Del Rio', 'Plex-Art Inc', 'Fabrication', '8210 S Broadway CA'),
 (004, 20, 'Jose Ramon Rodriguez', 8, 'Jose Ramon Rodriguez', 'joseRR@gmail.com', 'joseRR@snailmail.com', 'Personio GmbH', 'Engineering', '10221 Altstadtring Munich, Germany');
@@ -184,3 +192,11 @@ insert into phoneOrder(orderNumber) values
 insert into webOrder(orderNumber) values
 (03)
 (05);
+
+
+INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
+	(SELECT MenuID, MenuListingID, 1 FROM MenuOfferings WHERE MenuOfferings.MenuID = 3 AND MenuListingID > 15);
+INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
+	(SELECT MenuID, MenuListingID, 18 FROM MenuOfferings WHERE MenuOfferings.MenuID = 3 AND MenuListingID > 15);
+INSERT INTO ItemsOrdered (MenuID,MenuListingID,orderNumber)
+	(SELECT MenuID, MenuListingID, 15 FROM MenuOfferings WHERE MenuOfferings.MenuID = 3 AND MenuListingID < 15);

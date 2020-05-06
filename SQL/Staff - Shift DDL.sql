@@ -108,13 +108,10 @@ create table SousChef (
     expertise varChar(20) not null,
     isMentoring int,
     trainedBy int,
-    primary key (staffID,expertise),
-    constraint SousChef_foreignKey1
-    foreign key (staffID)
+    constraint Sous primary key (staffID,expertise),
+    constraint SousChef_foreignKey1 foreign key (staffID)
     REFERENCES Chef(staffID),
-    constraint SousChef_foreignKey2
-    foreign key (trainedBy)
-    REFERENCES HeadChef (HeadChefID)
+    constraint SousChef_foreignKey2 foreign key (trainedBy) REFERENCES HeadChef (HeadChefID)
 );
     
 create table Mentorship (

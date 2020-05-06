@@ -53,6 +53,7 @@ insert into staff
 Values
 (11,'Mary','Nguyen','2020-01-13','Yearly');
 
+
 insert into staff 
 (staffID,firstname,lastname,startDate,payperiod) 
 Values
@@ -68,7 +69,21 @@ insert into staff
 Values
 (14,'Gary','Lee','2020-01-13','Yearly');
 
+-- Making SousChefs for testing
+INSERT INTO staff (staffID,firstname,lastname,startDate,payperiod)  VALUES
+(15,'Gary','Lee','2020-01-13','Yearly'),(16,'Gary','Lee','2020-01-13','Yearly'),(17,'Bary','Ree','2019-01-13','Yearly'),(18,'Bam','Margera','2020-11-13','Yearly'),(19,'Flavor','Flav','2017-03-03','Yearly');
+
+insert into salariedStaff (staffID,salaryAmount) 
+	(SELECT staffID, 80000.0 FROM staff WHERE staffID > 14);
+
+
+
+
+
+
 -- Wage Staff
+
+
 
 insert into wagestaff 
 (staffID,hourlyWage)
@@ -317,6 +332,8 @@ values
 (10);
 
 -- Sous Chef
+
+
 
 insert into SousChef
 (staffID,expertise,isMentoring)
