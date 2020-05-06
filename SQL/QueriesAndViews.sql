@@ -209,4 +209,10 @@ SELECT orderNumber, custID, customerName, amountOfMimingsMoneySpent, privateCust
 
 
 #--5
-SELECT CustomerName FROM SuperCustData;
+CREATE OR REPLACE VIEW  Customer_Value_v as
+SELECT CustomerName, SUM(ListPrice) as TotalMoneySpentInTheLastYear FROM SuperCustData WHERE datediff(orderDate,NOW()) <= 365
+Group By CustomerName
+ORDER BY TotalMoneySpentInTheLastYear DESC;
+
+
+SELECT * FROM Customer_Value_v;
