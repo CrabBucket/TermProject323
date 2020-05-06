@@ -1,0 +1,1 @@
+INSERT INTO FoodItem (Price,DisplayName,SpiceLevel) VALUES (15.23,'Pizza','Mild'), (15.23,'Pizza','Mild'), (7.99,'Burger','Mild'), (5.00,'Sandwich','Mild');

@@ -58,7 +58,7 @@ CREATE TABLE SpiceLevel(
 );
 CREATE TABLE FoodItem (
 	FoodItemID MEDIUMINT NOT NULL Auto_Increment,
-	MenuRate DECIMAL(5,2) NOT NULL,
+	Price DECIMAL(5,2) NOT NULL,
     DisplayName VARCHAR(100) NOT NULL,
     SpiceLevel VARCHAR(30) NOT NULL,
 
