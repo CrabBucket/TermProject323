@@ -20,17 +20,18 @@ insert into orders(orderNumber, customerPhone, orderDate) values
 (19, '741-498-3432', '2019-07-05'),
 (20, '321-445-5431', '2019-03-03');
 
-#payments
-insert into payments() values
-()
-()
-()
-()
-()
-()
-()
-()
-();
+--payments
+insert into paymentType(paymentType) values
+('Cash'),
+('Credit'),
+('Debit'),
+('MiminigsMoney');
+
+insert into payments(payment, paymentType) values
+(, 'Cash'),
+(, 'Credit'),
+(, 'Debit'),
+(, 'MimingsMoney');
 
 insert into party (payment,orderNumber) 
 	(SELECT 'Mimings Money', orderNumber FROM orders where orders.orderNumber > 13);
@@ -58,11 +59,13 @@ insert into party(payment, orderNumber) values
 ('Mimings Money', 19),
 ('Mimings Money', 20);
 
+
 insert into knownOrder(custID, orderNumber)
 	(SELECT 1, orderNumber FROM orders WHERE orderNumber > 17);
 insert into knownOrder(custID, orderNumber)
 	(SELECT 2, orderNumber FROM orders WHERE orderNumber > 13 and orderNumber < 18);
-
+insert into knownOrder(custID, orderNumber)
+	(SELECT 3, orderNumber FROM orders WHERE orderNumber > 18 and orderNumber < 21);
 
 insert into knownOrder(custID, orderNumber) values
 (001, 01),
@@ -84,9 +87,19 @@ insert into knownOrder(custID, orderNumber) values
 (004, 20);
 
 insert into anonymousOrder(orderNumber) values
-(06)
-(07)
+(06),
+(07),
 (08);
+
+insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpent, privateCustomerName, 
+   email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress)
+	(SELECT 1, customerName FROM customer WHERE privateCustomerName is null AND where corporationCustomerName is null);
+insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpent, privateCustomerName, 
+   email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress)
+	(SELECT 2, customerName FROM customer WHERE corporationCustomerName is not null);
+insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpent, privateCustomerName, 
+   email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress)
+	(SELECT 3, customerName FROM customer WHERE privateCustomerName is not null);
 
 insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpent, privateCustomerName, 
    email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress) values
@@ -98,7 +111,7 @@ insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpen
 (009, 09, 'Daniel Stier', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (010, 10, 'Max Del Rio', 0, NULL, NULL, NULL, 'Max Del Rio', 'Plex-Art Inc', 'Fabrication', '8210 S Broadway CA'),
 (011, 11, 'Kevin Funez', 0, NULL, NULL, NULL, 'Kevin Funez', 'Dip Shipping', 'Sales', '18210 Studebaker CA'),
-(012, 12, 'Johnny David', 0, NULL, NULL, NULL, 'Johnny David', 'Dip Shipping', 'Engineering', '18210 Studebaker CA')
+(012, 12, 'Johnny David', 0, NULL, NULL, NULL, 'Johnny David', 'Dip Shipping', 'Engineering', '18210 Studebaker CA'),
 (013, 13, 'Luiz Rodriguez', 0, 'Luiz Rodriguez', 'luisR@gmail.com', 'luisR@snailmail.com', NULL, NULL, NULL, NULL),
 (001, 14, 'Daniel Jiron', 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (002, 15, 'Ely David Bajurto', 15, 'Ely David Bajurto', 'elyDB@gmail.com', 'elyDB@snailmail.com', NULL, NULL, NULL, NULL),
@@ -108,25 +121,42 @@ insert into customer(custID, orderNumber, customerName, amountOfMimingsMoneySpen
 (010, 19, 'Max Del Rio', 5, NULL, NULL, NULL, 'Max Del Rio', 'Plex-Art Inc', 'Fabrication', '8210 S Broadway CA'),
 (004, 20, 'Jose Ramon Rodriguez', 8, 'Jose Ramon Rodriguez', 'joseRR@gmail.com', 'joseRR@snailmail.com', 'Personio GmbH', 'Engineering', '10221 Altstadtring Munich, Germany');
 
+insert into insert into advisor(custID, contactType, contactName)
+	(SELECT 1, contactType FROM advisor WHERE contactType = 'Phone');
+insert into knownOrder(custID, orderNumber)
+	(SELECT 2, contactType FROM advisor WHERE contactType = 'Email');;
+insert into knownOrder(custID, orderNumber)
+	(SELECT 3, contactType FROM advisor WHERE contactType = 'Mail');
+
 insert into advisor(custID, contactType, contactName) values
 (003, 'Phone', 'Johnny Bajurto'),
 (004, 'Email', 'Brayan Funez'),
+(004, 'Mail', 'Carlos Funez'),
+(004, 'Phone', 'Johnny Bajurto'),
 (005, 'Mail', 'Carlos Funez'),
+(005, 'Phone', 'Zemial').
 (010, 'Phone', 'Zemial'),
-(011, 'Email', 'Vincent')
+(010, 'Mail', 'Danny'),
+(011, 'Email', 'Vincent'),
 (012, 'Mail', 'Danny');
 
 insert into phone(custID, phoneNumber, contactType) values
 (003, '123-954-9533', 'Phone'),
-(011, '601-654-9564', 'Phone');
+(011, '601-654-9564', 'Phone'),
+(004, '321-445-5431', 'Phone'),
+(005, '221-543-4412', 'Phone');
 
 insert into email(custID, email, contactType) values
-(004, 'joseRR@gmail.com', 'Email');
+(004, 'joseRR@gmail.com', 'Email'),
+(005, 'davidE@gmail.com', 'Email');
 
 insert into mail(custID, mailingAddress, contactType) values
-(005, '8210 Lincoln Road Miami, Florida', 'Mail')
-(010, '8210 S Broadway CA', mailingAddress)
-(012, '18210 Studebaker CA', mailingAddress);
+(005, '8210 Lincoln Road Miami, Florida', 'Mail'),
+(010, '8210 S Broadway CA', 'Mail'),
+(012, '18210 Studebaker CA', 'Mail'),
+(004, '10221 Altstadtring Munich, Germany', 'Mail'),
+(003, '8210 S Broadway CA', 'Mail'),
+(010, '8210 S Broadway CA', 'Mail');
 
 insert into eatIn(orderNumber, tableNumber, tableSeat) values
 (01, , ),
