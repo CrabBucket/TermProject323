@@ -19,7 +19,8 @@ CREATE TABLE BuffetPrice(
 	CONSTRAINT PK_BuffetPrice PRIMARY KEY (MenuType),
     CONSTRAINT FK_BuffetPrice FOREIGN KEY (MenuType) REFERENCES MenuType(MenuType)
 
-);
+);CREATE DATABASE `cecs323sec07s31` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
 
 CREATE TABLE Menu(
 	MenuID MEDIUMINT NOT NULL Auto_Increment,
