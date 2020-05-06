@@ -347,9 +347,9 @@ values
 
 -- MentorShip
 insert into Mentorship
-(staffID)
+(staffID,trainingStartDate)
 values
-(12);
+(12,11);
 
 -- Head Chef
 
