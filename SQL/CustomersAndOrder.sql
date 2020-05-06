@@ -1,50 +1,50 @@
 CREATE TABLE orders(
-bill VARCHAR(50) PRIMARY KEY,
+orderNumber int not null,
+bill double,
 customerPhone VARCHAR(15),
-orderNumber VARCHAR(50),
-orderDate VARCHAR(50),
+orderDate VARCHAR(15),
 CONSTRAINT order_pk PRIMARY KEY(orderNumber),
 CONSTRAINT order_fk1 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
 CREATE TABLE paymentType(
-cash VARCHAR(10),
-credit VARCHAR(10),
-mimingsMoney VARCHAR(10),
+cash double,
+credit double,
+mimingsMoney int,
 payment VARCHAR(10),
 CONSTRAINT paymanyType_pk PRIMARY KEY(payment)
 );
 
 CREATE TABLE party(
-payment VARCHAR(50),
-orderNumber VARCHAR(50),
+payment VARCHAR(15),
+orderNumber int not null,
 CONSTRAINT party_pk PRIMARY KEY (orderNumber),
 CONSTRAINT party_fk1 FOREIGN KEY(payment) REFERENCES paymentType (payment),
-CONSTRAINT party_fk1 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
+CONSTRAINT party_fk2 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
 CREATE TABLE knownOrder(
 custID int not null,
-orderNumber VARCHAR(50),
-customerName VARCHAR(50),
+orderNumber int not null,
+customerName VARCHAR(25),
 CONSTRAINT knownOrder_pk PRIMARY KEY(custID),
-CONSTRAINT knownOrder_fk FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
+CONSTRAINT knownOrder_fk1 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
 CREATE TABLE anonymousOrder(
-orderNumber VARCHAR(50),
+orderNumber int not null,
 CONSTRAINT anonymousOrder_pk PRIMARY KEY(orderNumber),
 CONSTRAINT anonymousOrder_fk FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
 CREATE TABLE customer(
 custID int not null,
-customerName VARCHAR(50),
+customerName VARCHAR(25),
 amountOfMimingsMoneySpent int,
-privateCustomerName VARCHAR(50),
+privateCustomerName VARCHAR(25),
 email VARCHAR(50),
 snailMail VARCHAR(50),
-corporationCustomerName VARCHAR(50),
+corporationCustomerName VARCHAR(25),
 corporationName VARCHAR(50),
 organizationName VARCHAR(50),
 officeAddress VARCHAR(50),
@@ -54,64 +54,66 @@ CONSTRAINT customer_fk FOREIGN KEY (custID) REFERENCES knownOrder (custID)
 
 CREATE TABLE advisor(
 custID int not null,
-contactType VARCHAR(50),
-contactName VARCHAR(50),
+contactType VARCHAR(10),
+contactName VARCHAR(20),
 constraint advisor_pk PRIMARY KEY(custID, contactType),
 CONSTRAINT advisor_fk FOREIGN KEY (custID) REFERENCES knownOrder (custID)
 );
 
 CREATE TABLE phone(
-phoneNumber VARCHAR(50),
 custID int not null,
-contactType VARCHAR(50),
+phoneNumber VARCHAR(15),
+contactType VARCHAR(10),
 CONSTRAINT phone_pk PRIMARY KEY(custID, contactType),
 constraint phone_fk1 FOREIGN KEY (custID) REFERENCES advisor (custID),
 constraint phone_fk2 FOREIGN KEY (contactType) REFERENCES advisor (contactType)
 );
 
 CREATE TABLE email(
-email VARCHAR(50),
 custID int not null,
-contactType VARCHAR(50),
+email VARCHAR(25),
+contactType VARCHAR(10),
 CONSTRAINT phone_pk PRIMARY KEY(custID, contactType),
 constraint phone_fk1 FOREIGN KEY (custID) REFERENCES knownOrder (custID),
 constraint phone_fk2 FOREIGN KEY (contactType) REFERENCES advisor (contactType)
 );
 
 CREATE TABLE mail(
-mailingAddress VARCHAR(50),
 custID int not null,
-contactType VARCHAR(50),
+mailingAddress VARCHAR(50),
+contactType VARCHAR(10),
 CONSTRAINT phone_pk PRIMARY KEY(custID, contactType),
 constraint phone_fk1 FOREIGN KEY (custID) REFERENCES knownOrder (custID),
 constraint phone_fk2 FOREIGN KEY (contactType) REFERENCES advisor (contactType)
 );
 
 CREATE TABLE eatIn(
+orderNumber int not null,
 tableNumber int,
 tableSeat int,
-orederNumber VARCHAR(50),
 CONSTRAINT eatIn_pk PRIMARY KEY (orderNumber), 
 CONSTRAINT eatIn_fk1 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber),
-CONSTRAINT eatIn-fk2 FOREIGN KEY (tableNumber) REFERENCES `Table` (tableNumber)
+CONSTRAINT eatIn_fk2 FOREIGN KEY (tableNumber) REFERENCES `Table` (tableNumber)
 );
 
 CREATE TABLE toGo(
-orderRecievedTime VARCHAR(50),
-orderPickUpTime VARCHAR(50),
-orederNumber VARCHAR(50),
+orderNumber int not null,
+orderReceivedTime TIMESTAMP,
+orderPickUpTime TIMESTAMP,
 CONSTRAINT toGo_pk PRIMARY KEY (orderNumber), 
 CONSTRAINT toGo_fk FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
 CREATE TABLE phoneOrder(
-orderNumber VARCHAR(50),
+orderNumber int not null,
 CONSTRAINT phoneOrder_pk PRIMARY KEY (orderNumber),
 CONSTRAINT phoneOrder_fk FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
 CREATE TABLE webOrder(
-orderNumber VARCHAR(50),
+orderNumber int not null,
 CONSTRAINT phoneOrder_pk PRIMARY KEY (orderNumber),
 CONSTRAINT phoneOrder_fk FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
+
+
