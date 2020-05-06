@@ -319,9 +319,9 @@ values
 -- Sous Chef
 
 insert into SousChef
-(staffID,expertise)
+(staffID,expertise,isMentoring)
 values
-(11,'Meat Entrees');
+(11,'Meat Entrees',12);
 
 insert into SousChef
 (staffID,expertise,trainingStartDate)
