@@ -61,9 +61,99 @@ ORDER BY (Case
 	else corporationCustomerName 
 END);
 
+#--1
 
-view)
---2
+
+
+
+
+
+
+CREATE OR REPLACE VIEW AllFoodItemsOnMenus AS
+    SELECT 
+        *
+    FROM
+        Menu
+            NATURAL JOIN
+        MenuType
+            NATURAL JOIN
+        MenuPrice
+            NATURAL JOIN
+        MenuOfferings
+            NATURAL JOIN
+        MenuListing
+            NATURAL JOIN
+        MenuDeals
+            NATURAL JOIN
+        FoodItem;
+
+CREATE OR REPLACE VIEW MenuPrices AS
+    SELECT 
+        DisplayName,
+        SpiceLevel,
+        MenuType,
+        ROUND(MenuRate * Price, 2) AS Price,
+        FoodItemID
+    FROM
+        AllFoodItemsOnMenus;
+        
+CREATE OR REPLACE VIEW LunchPrice AS
+    SELECT 
+        MenuPrices.FoodItemID, Price AS LunchPrice
+    FROM
+        MenuPrices
+    WHERE
+        MenuType = 'Lunch';
+        
+CREATE OR REPLACE VIEW EveningPrice AS
+    SELECT 
+        MenuPrices.FoodItemID, Price AS EveningPrice
+    FROM
+        MenuPrices
+    WHERE
+        MenuType = 'Evening';
+
+CREATE OR REPLACE VIEW ChildrenPrice AS
+    SELECT 
+        MenuPrices.FoodItemID, Price AS ChildrenPrice
+    FROM
+        MenuPrices
+    WHERE
+        MenuType = 'Childrens';
+CREATE OR REPLACE VIEW TheBuffetPrice AS
+    SELECT 
+        MenuPrices.FoodItemID, 0 AS BuffetPrice
+    FROM
+        MenuPrices
+    WHERE
+        MenuType = 'Sunday Brunch Buffet';
+
+
+CREATE OR REPLACE VIEW MenuItem_v  as
+SELECT DISTINCT
+    DisplayName,
+    SpiceLevel,
+    COALESCE(LunchPrice, 'N/A') AS LunchPrice,
+    COALESCE(EveningPrice, 'N/A') AS EveningPrice,
+    COALESCE(ChildrenPrice, 'N/A') AS ChildrensPrice,
+    COALESCE(BuffetPrice, 'N/A') AS BuffetPrice
+FROM
+    (FoodItem
+    LEFT JOIN LunchPrice USING (FoodItemID)
+    LEFT JOIN EveningPrice USING (FoodItemID)
+    LEFT JOIN ChildrenPrice USING (FoodItemID)
+    LEFT JOIN TheBuffetPrice USING (FoodItemID));
+    
+SELECT * FROM MenuItem_v;
+
+
+
+
+
+
+
+
+#--2
 CREATE OR REPLACE VIEW Customer_Addresses_v AS
 (
 SELECT customerName, Address, Email,`Miming Money Spent`, CorporationName, OrganizationName FROM (
@@ -72,44 +162,51 @@ SELECT customerName, Address, Email,`Miming Money Spent`, CorporationName, Organ
 );
 
 SELECT * FROM Customer_Addresses_v;
+
+
+
 #--4
-
-#CREATE OR REPLACE VIEW SuperCustData as
-SELECT * FROM customer NATURAL JOIN knownOrder NATURAL JOIN party NATURAL JOIN orders JOIN ItemsOrdered USING (orderNumber) JOIN All;
-SELECT * FROM SuperCustData;
-SELECT customerName, sum(something) FROM (
-	SELECT
-
-
-
-
-CREATE VIEW Customer_Sales_v AS
-(
-SELECT customerName, sum(bill) 
-FROM customers c
-INNER JOIN knownOrder ko
-ON c.custID = ko.custID
-INNER JOIN part p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN order o
-on ko.orderNumber = o.orderNumber
-GROUP BY customerName
-SELECT * FROM Customer_Sales_v
-);
+CREATE OR REPLACE VIEW AllMenuItemsOnMenus AS
+    SELECT 
+        MenuName, SUM(Price)*MenuRate*(1-DiscountRate) as ListPrice, MenuType,MenuListingID, MenuID
+    FROM
+        Menu
+            NATURAL JOIN
+        MenuType
+            NATURAL JOIN
+        MenuPrice
+            NATURAL JOIN
+        MenuOfferings
+            NATURAL JOIN
+        MenuListing
+            NATURAL JOIN
+        MenuDeals
+            NATURAL JOIN
+        FoodItem
+        GROUP BY MenuName,MenuType;
 
 
-SELECT customerName, sum(bill) 
-FROM customer c
-INNER JOIN knownOrder ko
-ON c.custID = ko.custID
-INNER JOIN part p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN orders o
-on ko.orderNumber = o.orderNumber
-GROUP BY customerName;
-SELECT * FROM Customer_Sales_v;
+SELECT * FROM AllMenuItemsOnMenus;
 
---5
+
+
+CREATE OR REPLACE VIEW SuperCustData as
+SELECT orderNumber, custID, customerName, amountOfMimingsMoneySpent, privateCustomerName, email, snailMail, corporationCustomerName, corporationName, organizationName, officeAddress, payment, customerPhone, orderDate, MenuName, ListPrice, MenuType, tmp.MenuListingID, menu.MenuID
+	FROM (SELECT * FROM customer NATURAL JOIN knownOrder NATURAL JOIN party NATURAL JOIN orders RIGHT JOIN ItemsOrdered USING (orderNumber)) tmp LEFT JOIN AllMenuItemsOnMenus menu ON tmp.MenuListingID  = menu.MenuListingID AND tmp.MenuID = menu.MenuID;
+
+
+
+
+
+
+
+
+
+
+
+
+
+#--5
 CREATE VIEW Customer_Value_v AS
 (
 SELECT customerName, sum(bill) 
