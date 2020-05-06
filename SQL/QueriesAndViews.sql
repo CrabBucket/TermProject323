@@ -154,12 +154,14 @@ SELECT * FROM MenuItem_v;
 
 
 #--2
-CREATE OR REPLACE VIEW Customer_Addresses_v AS
-(
-SELECT customerName, Address, Email,`Miming Money Spent`, CorporationName, OrganizationName FROM (
+CREATE OR REPLACE VIEW CST_Preprocess AS (
+	SELECT customerName, Address, Email,`Miming Money Spent`, CorporationName, OrganizationName FROM (
 	SELECT COALESCE(privateCustomerName,corporationCustomerName) as customerName, COALESCE(snailMail,officeAddress) as Address, COALESCE(email,'N/A') as Email, amountOfMimingsMoneySpent as `Miming Money Spent`, COALESCE(corporationName, "N/A") as CorporationName,  COALESCE(organizationName, "N/A") as OrganizationName 
     FROM customer) tmp
 );
+
+CREATE OR REPLACE VIEW Customer_Addresses_v AS
+	SELECT * FROM CST_Preprocess WHERE customerName IS NOT NULL;
 
 SELECT * FROM Customer_Addresses_v;
 
@@ -207,16 +209,4 @@ SELECT orderNumber, custID, customerName, amountOfMimingsMoneySpent, privateCust
 
 
 #--5
-CREATE VIEW Customer_Value_v AS
-(
-SELECT customerName, sum(bill) 
-FROM customer c
-INNER JOIN knownOrder ko
-ON c.custID = ko.custID
-INNER JOIN part p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN order o
-on ko.orderNumber = o.orderNumber
-GROUP BY customerName
-SELECT * FROM Customer_Value_v
-);
+SELECT CustomerName FROM SuperCustData;
