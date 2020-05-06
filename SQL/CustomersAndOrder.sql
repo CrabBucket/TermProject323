@@ -26,8 +26,7 @@ CONSTRAINT party_fk2 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNum
 CREATE TABLE knownOrder(
 custID int not null,
 orderNumber int not null,
-customerName VARCHAR(25),
-CONSTRAINT knownOrder_pk PRIMARY KEY(custID),
+CONSTRAINT knownOrder_pk PRIMARY KEY(custID, orderNumber),
 CONSTRAINT knownOrder_fk1 FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (orderNumber)
 );
 
@@ -39,6 +38,7 @@ CONSTRAINT anonymousOrder_fk FOREIGN KEY (orderNumber) REFERENCES ItemsOrdered (
 
 CREATE TABLE customer(
 custID int not null,
+orderNumber int not null,
 customerName VARCHAR(25),
 amountOfMimingsMoneySpent int,
 privateCustomerName VARCHAR(25),
