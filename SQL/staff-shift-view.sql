@@ -7,7 +7,8 @@ CREATE VIEW Sous_Mentor_V AS
 	select
 	s1.firstname,
 	s1.lastname,
-	sc1.expertise
+	sc1.expertise,
+    sc1.isMentoring
 from staff s1
 inner join SousChef sc1
 using  (staffID)
@@ -40,5 +41,5 @@ where isMentoring =
 	(select staffID 
     from Mentorship
     inner join staff
-    using (staffID) ) 
+    using (staffID)) 
 order by s1.firstname, s1.lastname;

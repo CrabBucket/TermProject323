@@ -1,31 +1,28 @@
 use cecs323sec07bg05;
 
-select * from SousChef;
-
--- 3 incomplete
+-- 3 completed
 select firstname, 
-lastname, 
-count(expertise)
+lastname,
+count(CookinCapabality.staffID) as 'Num of Menu Items',
+Group_Concat(DisplayName)
 from staff
-inner join SousChef using(staffID)
-group by staffID;
+inner join CookinCapabality using(staffID)
+inner join FoodItem using (FoodItemID)
+group by staffID
+having count(CookinCapabality.staffID) > 3;
 
  
 -- 4 incomplete
-select s1.firstname,
-	s1.lastname,
-    s2.firstName,
-    s2.lastname
-from staff s1
-inner join staff s2 using (staffID)
-inner join SousChef using (staffID);
+select * 
+from CookinCapabality cc1, CookinCapabality cc2
+where cc1.FoodItemID = cc2.FoodItemID;
 
--- 6 incomplete
+-- 6 completed
 select 
 	week(shiftDate),
 	firstname, 
 	lastname,
-    (count(shiftID) * 8) as 'Number of hours worked'
+    (count(shiftID) * 8) as 'Total number of hours'
 from staff
 inner join shift_assignment
 using (staffID)
@@ -33,7 +30,7 @@ inner join shift
 using (shiftID)
 group by staffID,shiftDate;
 
--- 12 complete
+-- 12 incomplete
 select firstname,
 lastname,
 expertise,
@@ -60,6 +57,17 @@ from (
 	inner join staff
 	using (staffID)
 	group by staffID) sc1;
+
+select
+CC1.DisplayName,
+min(`Number of Sous Chef skilled in that menu item`)
+from
+	(select DisplayName,
+    count(staffID) as `Number of Sous Chef skilled in that menu item`
+	from CookinCapabality
+    inner join FoodItem
+    using (FoodItemID)
+	group by FoodItemID) CC1;
     
 -- 16 incompleted
 -- 1.Head chef can train an apprentice to become a head chef (encoded in the one to one between head chef and sous chef)

@@ -470,5 +470,28 @@ values
 
 -- station-shift
 
+-- Cooking Capabality
+insert into CookinCapabality
+(FoodItemID,staffID)
+values
+(5,11);
 
-select * from shift;
+insert into CookinCapabality
+(FoodItemID,staffID)
+values
+(2,11);
+
+insert into CookinCapabality
+(FoodItemID,staffID)
+values
+(3,11);
+
+insert into CookinCapabality
+(FoodItemID,staffID)
+values
+(13,11);
+
+insert into CookinCapabality
+(FoodItemID,staffID)
+values
+(5,12);
