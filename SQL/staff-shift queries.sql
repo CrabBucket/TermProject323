@@ -38,11 +38,13 @@ max(`Num of students`)
 from (
 	select firstname,
     lastname,
-    count(isMentoring) as `Num of students`, 
+    count(TrainedBy) as `Num of students`, 
     expertise
-	from SousChef
+	from Mentorship
 	inner join staff
 	using (staffID)
+    inner join SousChef
+    using (staffID)
 	group by staffID) sc1;
 
 -- 13 Completed
@@ -53,7 +55,7 @@ CC1.DisplayName,
 from
 	(select DisplayName,
     count(staffID) as `Number of Sous Chef skilled in that menu item`
-	from CookinCapabality
+	from CookingCapability
     inner join FoodItem
     using (FoodItemID)
 	group by FoodItemID) CC1

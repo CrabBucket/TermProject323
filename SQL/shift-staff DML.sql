@@ -71,19 +71,27 @@ Values
 
 -- Making SousChefs for testing
 INSERT INTO staff (staffID,firstname,lastname,startDate,payperiod)  VALUES
-(15,'Gary','Lee','2020-01-13','Yearly'),(16,'Gary','Lee','2020-01-13','Yearly'),(17,'Bary','Ree','2019-01-13','Yearly'),(18,'Bam','Margera','2020-11-13','Yearly'),(19,'Flavor','Flav','2017-03-03','Yearly');
+(15,'Gary','Lee','2020-01-13','Yearly'),
+(16,'Gary','Lee','2020-01-13','Yearly'),
+(17,'Bary','Ree','2019-01-13','Yearly'),
+(18,'Bam','Margera','2020-11-13','Yearly'),
+(19,'Flavor','Flav','2017-03-03','Yearly');
+
+INSERT INTO staff 
+(staffID,firstname,lastname,startDate,payperiod)
+VALUES
+(20,'Tommy','Lee','2020-01-13','Yearly'),
+(21,'Sarah','Manzela','2020-01-13','Yearly'),
+(22,'Kevin','Karagen','2020-01-13','Yearly'),
+(23,'Bolton','Bushard','2020-01-13','Yearly'),
+(24,'Tommy','Lee','2020-01-13','Yearly'),
+(25,'Sarah','Manzela','2020-01-13','Yearly');
+
 
 insert into salariedStaff (staffID,salaryAmount) 
 	(SELECT staffID, 80000.0 FROM staff WHERE staffID > 14);
 
-
-
-
-
-
 -- Wage Staff
-
-
 
 insert into wagestaff 
 (staffID,hourlyWage)
@@ -276,6 +284,16 @@ insert into salariedStaff
 values
 (14,30000);
 
+INSERT INTO salariedStaff
+(staffID,salaryAmount)
+VALUES
+(20,25000),
+(21,25000),
+(22,25000),
+(23,25000),
+(24,25000),
+(25,25000);
+
 -- Manager
 
 insert into Manager
@@ -319,6 +337,15 @@ insert into Chef
 values
 (14);
 
+INSERT INTO Chef
+(staffID)
+VALUES
+(20),
+(21),
+(22),
+(23),
+(24),
+(25);
 -- Line Cook
 
 insert into lineCook
@@ -341,16 +368,36 @@ values
 (11,'Meat Entrees',12);
 
 insert into SousChef
-(staffID,expertise,trainingStartDate)
+(staffID,expertise)
 values
-(12,'Soup','2020-5-5');
+(12,'Soup');
 
+INSERT INTO SousChef
+(staffID,expertise)
+VALUES
+(20,'appetizer' ),
+(21,'Meat Entrees'),
+(22,'Meat Entrees'),
+(23,'Meat Entrees'),
+(24,'Soup'),
+(25,'Soup');
 -- MentorShip
 insert into Mentorship
 (staffID,trainingStartDate)
 values
-(12,11);
+(12,'2020-5-5');
 
+insert into Mentorship
+(staffID,trainingStartDate,TrainedBy)
+values
+(20,'2020-5-5',23),
+(21,'2020-5-5',23),
+(22,'2020-5-5',23);
+
+update SousChef
+set isMentoring = 23
+where staffID = 20 OR staffID = 21 OR staffID = 22
+;
 -- Head Chef
 
 insert into HeadChef
