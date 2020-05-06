@@ -25,8 +25,9 @@ CONSTRAINT party_fk2 FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
 CREATE TABLE knownOrder(
 custID int not null,
 orderNumber int not null,
-CONSTRAINT knownOrder_pk PRIMARY KEY(custID, orderNumber),
-CONSTRAINT knownOrder_fk1 FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
+CONSTRAINT knownOrder_pk PRIMARY KEY(custID),
+CONSTRAINT knownOrder_fk_FromCustomer Foreign Key (custID) REFERENCES customer(custId), 
+CONSTRAINT knownOrder_fk1 FOREIGN KEY (orderNumber) REFERENCES party (orderNumber)
 );
 
 CREATE TABLE anonymousOrder(
@@ -47,8 +48,7 @@ corporationCustomerName VARCHAR(25),
 corporationName VARCHAR(50),
 organizationName VARCHAR(50),
 officeAddress VARCHAR(50),
-CONSTRAINT customer_pk PRIMARY KEY(custID),
-CONSTRAINT customer_fk FOREIGN KEY (custID) REFERENCES knownOrder (custID)
+CONSTRAINT customer_pk PRIMARY KEY(custID)
 );
 
 CREATE TABLE advisor(
@@ -56,7 +56,7 @@ custID int not null,
 contactType VARCHAR(10),
 contactName VARCHAR(20),
 constraint advisor_pk PRIMARY KEY(custID, contactType),
-CONSTRAINT advisor_fk FOREIGN KEY (custID) REFERENCES knownOrder (custID)
+CONSTRAINT advisor_fk FOREIGN KEY (custID) REFERENCES customer (custID)
 );
 
 CREATE TABLE phone(
@@ -103,13 +103,13 @@ CONSTRAINT toGo_fk FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
 CREATE TABLE phoneOrder(
 orderNumber int not null,
 CONSTRAINT phoneOrder_pk PRIMARY KEY (orderNumber),
-CONSTRAINT phoneOrder_fk FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
+CONSTRAINT phoneOrder_fk FOREIGN KEY (orderNumber) REFERENCES toGo (orderNumber)
 );
 
 CREATE TABLE webOrder(
 orderNumber int not null,
 CONSTRAINT webOrder_pk PRIMARY KEY (orderNumber),
-CONSTRAINT webOrder_fk FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber)
+CONSTRAINT webOrder_fk FOREIGN KEY (orderNumber) REFERENCES toGo (orderNumber)
 );
 
 
