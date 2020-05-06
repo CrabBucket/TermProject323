@@ -1,0 +1,31 @@
+CREATE TABLE MenuType(
+	MenuType VARCHAR(50) NOT NULL,
+
+	CONSTRAINT PK_MenuType PRIMARY KEY (MenuType)
+
+);
+CREATE TABLE MenuPrice(
+	MenuType VARCHAR(50) NOT NULL,
+    MenuRate DECIMAL(1,3) NOT NULL,
+
+	CONSTRAINT PK_MenuPrice PRIMARY KEY (MenuType),
+    CONSTRAINT FK_MenuPrice FOREIGN KEY (MenuType) REFERENCES MenuType(MenuType)
+
+);
+CREATE TABLE BuffetPrice(
+	MenuType VARCHAR(50) NOT NULL,
+    Price DECIMAL(3,2) NOT NULL,
+
+	CONSTRAINT PK_BuffetPrice PRIMARY KEY (MenuType),
+    CONSTRAINT FK_BuffetPrice FOREIGN KEY (MenuType) REFERENCES MenuType(MenuType)
+
+);
+
+CREATE TABLE Menu(
+	MenuID VARCHAR(50) NOT NULL Auto_Increment,
+    MenuType VARCHAR(50) NOT NULL,
+
+	CONSTRAINT PK_Menu PRIMARY KEY (MenuID),
+    CONSTRAINT FK_Menu FOREIGN KEY (MenuType) REFERENCES MenuType(MenuType)
+
+);
