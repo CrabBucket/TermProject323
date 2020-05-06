@@ -22,10 +22,45 @@ CREATE TABLE BuffetPrice(
 );
 
 CREATE TABLE Menu(
-	MenuID VARCHAR(50) NOT NULL Auto_Increment,
+	MenuID MEDIUMINT NOT NULL Auto_Increment,
     MenuType VARCHAR(50) NOT NULL,
 
 	CONSTRAINT PK_Menu PRIMARY KEY (MenuID),
     CONSTRAINT FK_Menu FOREIGN KEY (MenuType) REFERENCES MenuType(MenuType)
+
+);
+CREATE TABLE MenuListing (
+	MenuListingID MEDIUMINT NOT NULL Auto_Increment,
+    DiscountRate DECIMAL(3,2) NOT NULL,
+    DisplayName VARCHAR(100) NOT NULL,
+    
+    CONSTRAINT PK_MenuListing PRIMARY KEY (MenuListingID)
+
+
+
+);
+CREATE TABLE MenuOfferings(
+	MenuID MEDIUMINT NOT NULL,
+	MenuListingID MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PK_MenuOfferings PRIMARY KEY (MenuID,MenuListingID),
+    CONSTRAINT FK_From_Menu FOREIGN KEY (MenuID) REFERENCES Menu(MenuID),
+    CONSTRAINT FK_From_MenuListing FOREIGN KEY (MenuListingID) REFERENCES MenuListing(MenuListingID)
+	
+
+);
+CREATE TABLE SpiceLevel(
+	SpiceLevel VARCHAR(30) NOT NULL,
+
+	 CONSTRAINT PK_SpiceLevel PRIMARY KEY (SpiceLevel)
+
+);
+CREATE TABLE FoodItem (
+	FoodItemID MEDIUMINT NOT NULL Auto_Increment,
+	MenuRate DECIMAL(3,2) NOT NULL,
+    DisplayName VARCHAR(100) NOT NULL,
+    SpiceLevel VARCHAR(30) NOT NULL,
+
+	CONSTRAINT PK_FoodItem PRIMARY KEY (FoodItemID)
 
 );
