@@ -13,7 +13,8 @@ create table staff (
 
 create table station (
 	StationID int not null,
-    primary key(stationID)
+    StationName VARCHAR(20) not null,
+    primary key(stationID,StationName)
 );
 
 create table wagestaff (
@@ -52,8 +53,9 @@ create table WaitStaff (
 
 create table `Table` (
 	tableNumber int not null,
-    primary key (tableNumber)
+    primary key (tableNumber,tableName)
 );
+
 
 create table AssignedTable (
 	staffID int not null,
@@ -106,7 +108,7 @@ create table SousChef (
     expertise varChar(20) not null,
     trainingStartDate date,
     trainingEndDate date,
-    trainedBy int not null,
+    trainedBy int,
     primary key (staffID),
     constraint SousChef_foreignKey1
     foreign key (staffID)
@@ -115,6 +117,7 @@ create table SousChef (
     foreign key (trainedBy)
     REFERENCES HeadChef (HeadChefID)
 );
+
 
 create table Mentorship (
 	staffID int not null,
@@ -165,10 +168,11 @@ create table station_shift (
 	StationID int not null,
     LineCookID int not null,
     ShiftID int not null,
-    primary key (StationID,LineCookID,ShiftID),
+    StationName VARCHAR(20) not null,
+    primary key (StationID,LineCookID,ShiftID,StationName),
 	constraint station_shift_station_FK
-    foreign key (StationID)
-    references station (StationID),
+    foreign key (StationID,StationName)
+    references station (StationID,StationName),
     constraint station_shift_lineCook_FK
     foreign key (LineCookID)
     references lineCook(staffID),
