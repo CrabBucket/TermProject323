@@ -56,6 +56,7 @@ CREATE TABLE SpiceLevel(
 	 CONSTRAINT PK_SpiceLevel PRIMARY KEY (SpiceLevel)
 
 );
+#DROP TABLE FoodItem;
 CREATE TABLE FoodItem (
 	FoodItemID MEDIUMINT NOT NULL Auto_Increment,
 	Price DECIMAL(5,2) NOT NULL,
@@ -65,6 +66,7 @@ CREATE TABLE FoodItem (
 	CONSTRAINT PK_FoodItem PRIMARY KEY (FoodItemID)
 
 );
+#DROP TABLE MenuDeals;
 CREATE TABLE MenuDeals (
 	MenuListingID MEDIUMINT NOT NULL,
     FoodItemID MEDIUMINT NOT NULL,
@@ -76,7 +78,7 @@ CREATE TABLE MenuDeals (
 
 
 );
-
+#DROP TABLE Appetizer;
 CREATE TABLE Appetizer (
 	FoodItemID MEDIUMINT NOT NULL,
     
@@ -84,7 +86,7 @@ CREATE TABLE Appetizer (
 	CONSTRAINT FK_AppetizerFrom_FoodItem FOREIGN KEY (FoodItemID) REFERENCES FoodItem(FoodItemID)
 
 );
-
+#DROP TABLE Soup;
 CREATE TABLE Soup (
 	FoodItemID MEDIUMINT NOT NULL,
 	
