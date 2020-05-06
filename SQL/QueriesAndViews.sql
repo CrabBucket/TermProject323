@@ -20,42 +20,16 @@ SELECT MenuName, COUNT(MenuListingID) as count FROM
 LIMIT 3;
 
 
-#7)
-SELECT customerName, sum(bill) 
-FROM customer c
-INNER JOIN knownOrder ko
-ON c.custID = ko.custID
-INNER JOIN part p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN order o
-on ko.orderNumber = o.orderNumber
-GROUP BY customerName
-HAVING sum(bill) / 10
-SELECT * FROM Customer_Value_v
-8)
-SELECT customerName, sum(bill) as total
-FROM customers c
-INNER JOIN knownOrder ko
-ON c.custID = ko.custID
-INNER JOIN part p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN order o
-on ko.orderNumber = o.orderNumber
-GROUP BY customerName
-ORDER BY total DESC
 
-10)
-SELECT customerName, sum(bill) as total
-FROM customers c
-INNER JOIN knownOrder ko
-ON c.custID = ko.custID
-INNER JOIN part p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN order o
-on ko.orderNumber = o.orderNumber
-GROUP BY customerName
-ORDER BY total 
-LIMI 3
+#10)
+SELECT * FROM Customer_Value_v
+LIMIT 3;
+
+#11) Just a note here you say Menu Item in the Query But my menu items are part of the ComboMenu so it's why You will see things that look like food (single FoodItem menu listing and also stuf like Dinner combos)
+SELECT MenuName, SUM(ListPrice) as TotalMoneyEarnedInTheLastTwoYear FROM SuperCustData WHERE datediff(orderDate,NOW()) <= 365
+Group By MenuName
+ORDER BY TotalMoneyEarnedInTheLastTwoYear DESC
+LIMIT 5;
 
 14)
 SELECT customerName, corporationCustomerName
@@ -214,7 +188,7 @@ SELECT orderNumber, custID, customerName, amountOfMimingsMoneySpent, privateCust
 
 #--5
 CREATE OR REPLACE VIEW  Customer_Value_v as
-SELECT CustomerName, SUM(ListPrice) as TotalMoneySpentInTheLastYear FROM SuperCustData WHERE datediff(orderDate,NOW()) <= 365
+SELECT CustomerName, ROUND(SUM(ListPrice),2) as TotalMoneySpentInTheLastYear FROM SuperCustData WHERE datediff(orderDate,NOW()) <= 365
 Group By CustomerName
 ORDER BY TotalMoneySpentInTheLastYear DESC;
 
