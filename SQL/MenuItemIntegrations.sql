@@ -8,3 +8,15 @@ CREATE TABLE CookinCapabality (
 	
 
 );
+
+CREATE TABLE ItemsOrdered (
+	MenuID MEDIUMINT NOT NULL,
+    MenuListingID MEDIUMINT NOT NULL,
+    orderNumber int NOT NULL,
+    
+    CONSTRAINT PK_ItemsOrdered PRIMARY KEY (MenuID,MenuListingID),
+    CONSTRAINT FK_ItemsOrderedFrom_MenuOfferings FOREIGN KEY (MenuId,MenuListingID) REFERENCES MenuOfferings(MenuID,MenuListingID),
+    CONSTRAINT FK_ItemsOrderedFrom_orders FOREIGN KEY (orderNumber) REFERENCES orders(orderNumber)
+	
+
+);
