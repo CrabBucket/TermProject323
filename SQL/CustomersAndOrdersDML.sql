@@ -32,6 +32,10 @@ insert into payments() values
 ()
 ();
 
+insert into party (payment,orderNumber) 
+	(SELECT 'Mimings Money', orderNumber FROM orders where orders.orderNumber > 13);
+
+
 insert into party(payment, orderNumber) values
 ('Cash', 01)
 ('Cash', 02)
@@ -52,7 +56,13 @@ insert into party(payment, orderNumber) values
 ('Mimings Money', 17),
 ('Mimings Money', 18),
 ('Mimings Money', 19),
-('Mimings Money', 20),;
+('Mimings Money', 20);
+
+insert into knownOrder(custID, orderNumber)
+	(SELECT 1, orderNumber FROM orders WHERE orderNumber > 17);
+insert into knownOrder(custID, orderNumber)
+	(SELECT 2, orderNumber FROM orders WHERE orderNumber > 13 and orderNumber < 18);
+
 
 insert into knownOrder(custID, orderNumber) values
 (001, 01),
