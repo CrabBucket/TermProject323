@@ -1,4 +1,4 @@
-1)
+#1
 SELECT customerName, corporationCustomerName, privateCustomerName
 FROM customers
 ORDER BY (Case
@@ -6,17 +6,21 @@ ORDER BY (Case
 	WHEN privateCustomerName is null then customerName
 	
 END);
---2)
-SELECT customerName, sum(bill) as spending
-FROM customers c
-INNER JOIN knownOrder ko
-on c.custID = ko.custID
-INNER JOIN party p
-ON ko.orderNumber = p.orderNumber
-INNER JOIN order o
-ON p.orderNumber = o.orderNumber
+#2
+SELECT CustomerName, SUM(ListPrice) as TotalMoneySpentInTheLastTwoYear FROM SuperCustData WHERE datediff(orderDate,NOW()) <= 365*2
+Group By CustomerName
+ORDER BY TotalMoneySpentInTheLastYear DESC
+LIMIT 3;
 
---7)
+
+#5)
+
+SELECT MenuName, COUNT(MenuListingID) as count FROM
+(SELECT * FROM ItemsOrdered WHERE MenuID = 1) tmp NATURAL JOIN MenuListing GROUP BY MenuName ORDER BY count DESC
+LIMIT 3;
+
+
+#7)
 SELECT customerName, sum(bill) 
 FROM customer c
 INNER JOIN knownOrder ko
