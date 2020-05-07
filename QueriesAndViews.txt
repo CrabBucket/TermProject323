@@ -15,6 +15,19 @@ Daniel Jiron	116.175500
 Ely David Bajurto	108.870000
 Max Del Rio	99.088000
 
+#3)
+
+select firstname, 
+lastname,
+count(CookinCapabality.staffID) as 'Num of Menu Items',
+Group_Concat(DisplayName)
+from staff
+inner join CookinCapabality using(staffID)
+inner join FoodItem using (FoodItemID)
+group by staffID
+having count(CookinCapabality.staffID) > 3;
+Mary, Nguyen, 4, Pork Ramen,Steak,Spicy Udon,Wonton Soup
+
 
 #5)
 
@@ -25,6 +38,23 @@ Orange Chicken	2
 Spicy Udon	2
 Salad	2
 
+#6)
+
+select 
+	week(shiftDate),
+	firstname, 
+	lastname,
+    (count(shiftID) * 8) as 'Total number of hours'
+from staff
+inner join shift_assignment
+using (staffID)
+inner join shift
+using (shiftID)
+group by staffID,shiftDate;
+18, Jordan, Mendez, 8
+18, Kevin, Do, 8
+18, John, Albery, 16
+18, Bruce, Lee, 16
 
 
 #10)

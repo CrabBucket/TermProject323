@@ -3,13 +3,13 @@ use cecs323sec07bg05;
 -- 3 Completed
 select firstname, 
 lastname,
-count(CookinCapabality.staffID) as 'Num of Menu Items',
+count(CookingCapability.staffID) as 'Num of Menu Items',
 Group_Concat(DisplayName)
 from staff
-inner join CookinCapabality using(staffID)
+inner join CookingCapability using(staffID)
 inner join FoodItem using (FoodItemID)
 group by staffID
-having count(CookinCapabality.staffID) > 3;
+having count(CookingCapability.staffID) > 3;
 
  
 -- 4 incomplete
